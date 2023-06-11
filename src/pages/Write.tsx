@@ -138,7 +138,6 @@ const Write = () => {
     } else {
       requestCreatePost();
     }
-    z;
     navigate('/');
   };
 
