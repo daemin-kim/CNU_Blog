@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { TAG } from '../api/types';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createPost, getPostById, updatePostById } from '../api';
+const navigate = useNavigate();
 
 const TitleInput = styled.input`
   display: block;
@@ -91,13 +92,12 @@ const Write = () => {
   const [tag, setTag] = useState<TAG>(TAG.REACT);
   const [content, setContent] = useState('');
   const tagList = Object.keys(TAG);
-
   const fetchPostById = async (postId: string) => {
     const { data } = await getPostById(postId);
     const { post } = data;
     setTitle(post.title);
-    setTag(post.tag);
     setContent(post.contents);
+    setTag(post.tag);
   };
 
   useEffect(() => {
@@ -117,8 +117,6 @@ const Write = () => {
   const handleChangeTag = (event: ChangeEvent<HTMLSelectElement>) => {
     setTag(event.target.value as TAG);
   };
-
-  const navigate = useNavigate();
 
   const requestCreatePost = async () => {
     await createPost(title, content, tag);

@@ -64,7 +64,7 @@ const Post = () => {
   // todo (4) post 컴포넌트 작성
   const params = useParams();
   const { postId } = params;
-  const [post, setPost] = useState<IPost | undefined>(undefined);
+  const [post, setPost] = useState<IPost | null>(null);
 
   const fetchPostById = async () => {
     const { data } = await getPostById(postId ?? '');
@@ -100,10 +100,9 @@ const Post = () => {
             <div>n분전</div>
           </Info>
           <div>
-            <Link to="/write" state={{ postId }}>
+            <Link to="/write" state={{ postId }} style={{ marginRight: 10 }}>
               <TextButton>수정</TextButton>
             </Link>
-
             <TextButton onClick={clickDeleteButton}>삭제</TextButton>
           </div>
         </Toolbar>
